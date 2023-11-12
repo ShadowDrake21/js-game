@@ -11,7 +11,6 @@ export class InputHandler {
         !this.pressedKeys.includes(e.keyCode) // 68 -> D 87 -> W 65 -> A 83-> S
       ) {
         this.pressedKeys.push(e.keyCode)
-        console.log(this.pressedKeys)
       }
     })
     window.addEventListener('keyup', (e) => {
@@ -22,7 +21,6 @@ export class InputHandler {
         e.keyCode === 83
       ) {
         this.pressedKeys.splice(this.pressedKeys.indexOf(e.keyCode), 1)
-        console.log(this.pressedKeys)
       }
     })
   }
