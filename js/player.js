@@ -1,4 +1,10 @@
-import { Waiting, Walking, Running } from './statesForPlayer.js'
+import {
+  Waiting,
+  Walking,
+  Running,
+  Jumping,
+  Falling,
+} from './statesForPlayer.js'
 
 export class Player {
   constructor(game) {
@@ -22,6 +28,8 @@ export class Player {
       new Waiting(this.game),
       new Walking(this.game),
       new Running(this.game),
+      new Jumping(this.game),
+      new Falling(this.game),
     ]
     this.currentState = null
   }
@@ -42,9 +50,6 @@ export class Player {
       this.x = this.game.width - this.width
 
     // vertical movement
-    if (input.includes(87) && this.isOnGround()) {
-      this.velocityY -= 27
-    }
     this.y += this.velocityY
     if (!this.isOnGround()) {
       this.velocityY += this.weight

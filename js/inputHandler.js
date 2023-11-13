@@ -5,7 +5,7 @@ export class InputHandler {
     window.addEventListener('keydown', (e) => {
       console.log(e.keyCode)
       if (
-        (e.key === 87 ||
+        (e.keyCode === 87 ||
           e.keyCode === 65 ||
           e.keyCode === 68 ||
           e.keyCode === 83 ||
