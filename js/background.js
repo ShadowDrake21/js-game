@@ -11,7 +11,6 @@ class Layer {
   update() {
     if (this.x < -this.width) this.x = 0
     else {
-      console.log(this.game.speed)
       this.x -= this.game.speed * this.speedCoef
     }
   }

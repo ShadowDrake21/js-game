@@ -47,6 +47,12 @@ export class Walking extends State {
       this.game.player.setState(states.WAITING, 0)
     } else if (input.includes(13)) {
       this.game.player.setState(states.RUNNING, 3)
+    } else if (input.includes(82)) {
+      this.game.player.setState(states.HIT1, 2)
+    } else if (input.includes(81)) {
+      this.game.player.setState(states.HIT2, 2)
+    } else if (input.includes(90)) {
+      this.game.player.setState(states.HIT3, 2)
     }
   }
 }
@@ -70,6 +76,12 @@ export class Running extends State {
       (input.includes(87) && input.includes(68))
     ) {
       this.game.player.setState(states.JUMPING, 3)
+    } else if (input.includes(82)) {
+      this.game.player.setState(states.HIT1, 3)
+    } else if (input.includes(81)) {
+      this.game.player.setState(states.HIT2, 3)
+    } else if (input.includes(90)) {
+      this.game.player.setState(states.HIT3, 3)
     }
   }
 }
@@ -105,6 +117,72 @@ export class Falling extends State {
   handleInput(input) {
     if (this.game.player.isOnGround()) {
       this.game.player.setState(states.RUNNING, 3)
+    } else if (input.includes(82)) {
+      this.game.player.setState(states.HIT1, 3)
+    } else if (input.includes(81)) {
+      this.game.player.setState(states.HIT2, 3)
+    } else if (input.includes(90)) {
+      this.game.player.setState(states.HIT3, 3)
     }
   }
+}
+
+export class Hit1 extends State {
+  constructor(game) {
+    super(game, 'HIT1')
+  }
+  enter() {
+    this.game.player.frameX = 0
+    this.game.player.maxFrame = 4
+    this.game.player.frameY = 4
+  }
+  handleInput(input) {
+    if (!input.includes(82)) {
+      this.game.player.setState(states.WALKING, 2)
+    }
+  }
+}
+
+export class Hit2 extends State {
+  constructor(game) {
+    super(game, 'HIT2')
+  }
+  enter() {
+    this.game.player.frameX = 0
+    this.game.player.maxFrame = 2
+    this.game.player.frameY = 5
+  }
+  handleInput(input) {
+    if (!input.includes(81)) {
+      this.game.player.setState(states.WALKING, 2)
+    }
+  }
+}
+
+export class Hit3 extends State {
+  constructor(game) {
+    super(game, 'HIT3')
+  }
+  enter() {
+    this.game.player.frameX = 0
+    this.game.player.maxFrame = 3
+    this.game.player.frameY = 7
+  }
+  handleInput(input) {
+    if (!input.includes(90)) {
+      this.game.player.setState(states.WALKING, 2)
+    }
+  }
+}
+
+export class Dead extends State {
+  constructor(game) {
+    super(game, 'DEAD')
+  }
+  enter() {
+    this.game.player.frameX = 0
+    this.game.player.maxFrame = 3
+    this.game.player.frameY = 9
+  }
+  handleInput(input) {}
 }

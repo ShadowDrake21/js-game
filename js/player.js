@@ -4,13 +4,17 @@ import {
   Running,
   Jumping,
   Falling,
+  Hit1,
+  Hit2,
+  Hit3,
+  Dead,
 } from './statesForPlayer.js'
 
 export class Player {
   constructor(game) {
     this.game = game
     this.width = 128
-    this.height = 126
+    this.height = 130
     this.x = 0
     this.y = this.game.height - this.height - this.game.groundHeight
     this.velocityY = 0
@@ -30,6 +34,10 @@ export class Player {
       new Running(this.game),
       new Jumping(this.game),
       new Falling(this.game),
+      new Hit1(this.game),
+      new Hit2(this.game),
+      new Hit3(this.game),
+      new Dead(this.game),
     ]
     this.currentState = null
   }
@@ -72,23 +80,42 @@ export class Player {
     }
   }
   draw(context) {
-    context.drawImage(
-      this.image,
-      this.frameX * this.width,
-      this.frameY * this.height,
-      this.width,
-      this.height,
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    )
+    if (
+      this.currentState !== this.states[0] &&
+      this.currentState !== this.states[1]
+    ) {
+      console.log(this.currentState)
+      context.drawImage(
+        this.image,
+        this.frameX * this.width,
+        this.frameY * this.height,
+        this.width,
+        this.height,
+        this.x,
+        this.y + 10,
+        this.width,
+        this.height
+      )
+    } else {
+      context.drawImage(
+        this.image,
+        this.frameX * this.width,
+        this.frameY * this.height,
+        this.width,
+        this.height,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      )
+    }
   }
   isOnGround() {
     return this.y >= this.game.height - this.height - this.game.groundHeight
   }
   setState(state, speed) {
     this.currentState = this.states[state]
+
     this.game.speed = this.game.maxSpeed * speed
     this.currentState.enter()
   }
