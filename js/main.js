@@ -14,13 +14,16 @@ window.addEventListener('load', function (e) {
       this.height = height
       this.groundHeight = 70
       this.speed = 0
+      this.maxSpeed = 3
       this.player = new Player(this)
       this.input = new InputHandler(this)
       this.background = new Background(this)
+      this.player.currentState = this.player.states[0]
+      this.player.currentState.enter()
     }
     update(deltaTime) {
       this.background.update()
-      this.player.update(this.input, deltaTime)
+      this.player.update(this.input.pressedKeys, deltaTime)
     }
     draw(context) {
       this.background.draw(context)

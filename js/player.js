@@ -1,3 +1,5 @@
+import { Walking } from './statesForPlayer.js'
+
 export class Player {
   constructor(game) {
     this.game = game
@@ -9,20 +11,23 @@ export class Player {
     this.weight = 1
     this.image = document.getElementById('player')
     this.frameX = 0
-    this.frameY = 1
-    this.maxFrame = 7
+    this.frameY = 0
+    this.maxFrame
     this.speed = 0
     this.maxSpeed = 15
     this.fpsNum = 20
     this.frameInterval = 1000 / this.fpsNum
     this.frameTimer = 0
+    this.states = [new Walking(this.game)]
+    this.currentState = null
   }
   update(input, deltaTime) {
+    this.currentState.handleInput(input)
     this.x += this.speed
     // horizontal movement
-    if (input.pressedKeys.includes(68)) {
+    if (input.includes(68)) {
       this.speed = this.maxSpeed
-    } else if (input.pressedKeys.includes(65)) {
+    } else if (input.includes(65)) {
       this.speed = -this.maxSpeed
     } else {
       this.speed = 0
@@ -33,7 +38,7 @@ export class Player {
       this.x = this.game.width - this.width
 
     // vertical movement
-    if (input.pressedKeys.includes(87) && this.isOnGround()) {
+    if (input.includes(87) && this.isOnGround()) {
       this.velocityY -= 27
     }
     this.y += this.velocityY
@@ -58,8 +63,6 @@ export class Player {
     }
   }
   draw(context) {
-    context.fillStyle = 'black'
-    // context.fillRect(this.x, this.y, this.width, this.height)
     context.drawImage(
       this.image,
       this.frameX * this.width,
@@ -74,5 +77,10 @@ export class Player {
   }
   isOnGround() {
     return this.y >= this.game.height - this.height - this.game.groundHeight
+  }
+  setState(state, speed) {
+    this.currentState = this.states[state]
+    this.game.speed = this.game.maxSpeed * speed
+    this.currentState.enter()
   }
 }
