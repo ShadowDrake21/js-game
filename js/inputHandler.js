@@ -4,11 +4,11 @@ export class InputHandler {
     this.pressedKeys = []
     window.addEventListener('keydown', (e) => {
       if (
-        (e.keyCode === 87 ||
+        (e.key === 87 ||
           e.keyCode === 65 ||
           e.keyCode === 68 ||
           e.keyCode === 83) &&
-        !this.pressedKeys.includes(e.keyCode) // 68 -> D 87 -> W 65 -> A 83-> S
+        this.pressedKeys.indexOf(e.keyCode) === -1 // 68 -> D 87 -> W 65 -> A 83-> S
       ) {
         this.pressedKeys.push(e.keyCode)
       }

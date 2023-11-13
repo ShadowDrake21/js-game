@@ -1,4 +1,4 @@
-import { Walking } from './statesForPlayer.js'
+import { Waiting, Walking } from './statesForPlayer.js'
 
 export class Player {
   constructor(game) {
@@ -14,11 +14,11 @@ export class Player {
     this.frameY = 0
     this.maxFrame
     this.speed = 0
-    this.maxSpeed = 15
-    this.fpsNum = 20
+    this.maxSpeed = 5
+    this.fpsNum = 15
     this.frameInterval = 1000 / this.fpsNum
     this.frameTimer = 0
-    this.states = [new Walking(this.game)]
+    this.states = [new Waiting(this.game), new Walking(this.game)]
     this.currentState = null
   }
   update(input, deltaTime) {
