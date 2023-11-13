@@ -42,9 +42,28 @@ export class Walking extends State {
     this.game.player.frameY = 1
   }
   handleInput(input) {
-    console.log(input)
     if (input.includes(83)) {
       this.game.player.setState(states.WAITING, 0)
+    } else if (input.includes(13)) {
+      this.game.player.setState(states.RUNNING, 3)
+    }
+  }
+}
+
+export class Running extends State {
+  constructor(game) {
+    super(game, 'RUNNING')
+  }
+  enter() {
+    this.game.player.frameX = 0
+    this.game.player.maxFrame = 7
+    this.game.player.frameY = 2
+  }
+  handleInput(input) {
+    if (input.includes(83)) {
+      this.game.player.setState(states.WAITING, 0)
+    } else if (input.includes(68) || input.includes(65)) {
+      this.game.player.setState(states.WALKING, 2)
     }
   }
 }
