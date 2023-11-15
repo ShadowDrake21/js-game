@@ -1,4 +1,5 @@
 import { Background } from './background.js'
+import { Digger, Hand } from './enemies.js'
 import { InputHandler } from './inputHandler.js'
 import { Player } from './player.js'
 
@@ -21,20 +22,46 @@ window.addEventListener('load', function (e) {
       this.time = 0
       this.maxTime = 10000
       this.gameOver = false
+      this.enemies = []
+      this.enemyTimer = 0
+      this.enemyInterval = 1500
       this.player.currentState = this.player.states[0]
       this.player.currentState.enter()
     }
     update(deltaTime) {
       this.time += deltaTime
       if (this.time > this.maxTime) {
-        this.gameOver = true
+        // this.gameOver = true
       }
       this.background.update()
       this.player.update(this.input.pressedKeys, deltaTime)
+
+      // enemies hanler
+      if (this.enemyTimer > this.enemyInterval) {
+        this.enemyAddition()
+        this.enemyTimer = 0
+      } else {
+        this.enemyTimer += deltaTime
+      }
+      this.enemies.forEach((enemy) => {
+        enemy.update(deltaTime)
+      })
+      this.enemies = this.enemies.filter((enemy) => !enemy.deletionMark)
+      console.log(this.enemies)
     }
     draw(context) {
       this.background.draw(context)
       this.player.draw(context)
+      this.enemies.forEach((enemy) => {
+        enemy.draw(context)
+      })
+    }
+    enemyAddition() {
+      if (this.speed > 2 && Math.random() < 0.6) {
+        this.enemies.push(new Digger(this))
+      } else if (this.speed > 2 && Math.random() > 0.5) {
+        this.enemies.push(new Hand(this))
+      }
     }
   }
 

@@ -67,9 +67,7 @@ export class Running extends State {
     this.game.player.frameY = 2
   }
   handleInput(input) {
-    if (input.includes(83)) {
-      this.game.player.setState(states.WAITING, 0)
-    } else if (!input.includes(13)) {
+    if (!input.includes(13)) {
       this.game.player.setState(states.WALKING, 2)
     } else if (
       input.includes(87) ||
