@@ -1,5 +1,5 @@
 import { Background } from './background.js'
-import { Digger, Hand } from './enemies.js'
+import { Digger, Hand, Raven } from './enemies.js'
 import { InputHandler } from './inputHandler.js'
 import { Player } from './player.js'
 
@@ -47,7 +47,7 @@ window.addEventListener('load', function (e) {
         enemy.update(deltaTime)
       })
       this.enemies = this.enemies.filter((enemy) => !enemy.deletionMark)
-      console.log(this.enemies)
+      console.log(this.player.currentState)
     }
     draw(context) {
       this.background.draw(context)
@@ -62,6 +62,7 @@ window.addEventListener('load', function (e) {
       } else if (this.speed > 2 && Math.random() > 0.5) {
         this.enemies.push(new Hand(this))
       }
+      if (Math.random() > 0.6) this.enemies.push(new Raven(this))
     }
   }
 

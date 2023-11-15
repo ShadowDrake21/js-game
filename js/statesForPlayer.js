@@ -27,7 +27,7 @@ export class Waiting extends State {
     this.game.player.frameY = 0
   }
   handleInput(input) {
-    if (input.includes(68) || input.includes(65)) {
+    if ((input.includes(68) || input.includes(65)) && !input.includes(83)) {
       this.game.player.setState(states.WALKING, 2)
     }
   }

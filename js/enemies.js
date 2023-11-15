@@ -45,10 +45,10 @@ export class Digger extends Enemy {
     this.game = game
     this.width = 146.125
     this.height = 100
-    this.speedX = 0
-    this.speedY = 0
     this.x = this.game.width
     this.y = this.game.height - this.height - this.game.groundHeight
+    this.speedX = 0
+    this.speedY = 0
     this.image = document.getElementById('digger')
     this.maxFrame = 7
   }
@@ -60,11 +60,33 @@ export class Hand extends Enemy {
     this.game = game
     this.width = 55.75
     this.height = 80
-    this.speedX = 0
-    this.speedY = 0
     this.x = this.game.width
     this.y = this.game.height - this.height - this.game.groundHeight
+    this.speedX = 0
+    this.speedY = 0
     this.image = document.getElementById('hand')
     this.maxFrame = 7
+  }
+}
+
+export class Raven extends Enemy {
+  constructor(game) {
+    super()
+    this.game = game
+    this.width = 111.83
+    this.height = 80
+    this.x = this.game.width + Math.random() * this.game.width * 1.4
+    this.y = Math.random() * this.game.height * 0.5
+    this.speedX = Math.random() + 2
+    this.speedY = 0
+    this.image = document.getElementById('raven')
+    this.maxFrame = 5
+    this.angle = 0
+    this.va = Math.random() * 0.1 + 0.1
+  }
+  update(deltaTime) {
+    super.update(deltaTime)
+    this.angle += this.va
+    this.y += Math.cos(this.angle)
   }
 }
