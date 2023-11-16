@@ -1,6 +1,7 @@
 import { Background } from './background.js'
 import { Digger, Hand, Raven, Zombie } from './enemies.js'
 import { InputHandler } from './inputHandler.js'
+import { Labels } from './labels.js'
 import { Player } from './player.js'
 
 window.addEventListener('load', function (e) {
@@ -19,6 +20,7 @@ window.addEventListener('load', function (e) {
       this.player = new Player(this)
       this.input = new InputHandler(this)
       this.background = new Background(this)
+      this.labels = new Labels(this)
       this.time = 0
       this.maxTime = 40000
       this.gameOver = false
@@ -28,6 +30,7 @@ window.addEventListener('load', function (e) {
       this.enemyInterval = 1500
       this.score = 0
       this.winScore = 70
+      this.textColor = 'black'
       this.player.currentState = this.player.states[0]
       this.player.currentState.enter()
     }
@@ -61,6 +64,7 @@ window.addEventListener('load', function (e) {
       this.enemies.forEach((enemy) => {
         enemy.draw(context)
       })
+      this.labels.draw(context)
     }
     enemyAddition() {
       if (this.speed > 2 && Math.random() < 0.6) {
