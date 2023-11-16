@@ -29,6 +29,7 @@ body {
 #layer5,
 #digger,
 #hand,
-#raven {
+#raven,
+#zombie {
   display: none;
 }

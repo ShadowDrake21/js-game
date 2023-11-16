@@ -1,5 +1,5 @@
 import { Background } from './background.js'
-import { Digger, Hand, Raven } from './enemies.js'
+import { Digger, Hand, Raven, Zombie } from './enemies.js'
 import { InputHandler } from './inputHandler.js'
 import { Player } from './player.js'
 
@@ -63,6 +63,8 @@ window.addEventListener('load', function (e) {
         this.enemies.push(new Hand(this))
       }
       if (Math.random() > 0.6) this.enemies.push(new Raven(this))
+      if (this.time > 10000 && Math.random() > 0.7)
+        this.enemies.push(new Zombie(this))
     }
   }
 

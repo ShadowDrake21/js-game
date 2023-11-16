@@ -76,7 +76,7 @@ export class Raven extends Enemy {
     this.width = 111.83
     this.height = 80
     this.x = this.game.width + Math.random() * this.game.width * 1.4
-    this.y = Math.random() * this.game.height * 0.5
+    this.y = Math.random() * this.game.height * 0.4
     this.speedX = Math.random() + 2
     this.speedY = 0
     this.image = document.getElementById('raven')
@@ -88,5 +88,20 @@ export class Raven extends Enemy {
     super.update(deltaTime)
     this.angle += this.va
     this.y += Math.cos(this.angle)
+  }
+}
+
+export class Zombie extends Enemy {
+  constructor(game) {
+    super()
+    this.game = game
+    this.width = 292
+    this.height = 410
+    this.x = this.game.width
+    this.y = this.game.height - this.height - this.game.groundHeight
+    this.speedX = 1
+    this.speedY = 0
+    this.image = document.getElementById('zombie')
+    this.maxFrame = 7
   }
 }
