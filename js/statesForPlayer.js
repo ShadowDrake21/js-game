@@ -75,11 +75,11 @@ export class Running extends State {
     ) {
       this.game.player.setState(states.JUMPING, 3)
     } else if (input.includes(82)) {
-      this.game.player.setState(states.HIT1, 3)
+      this.game.player.setState(states.HIT1, 2)
     } else if (input.includes(81)) {
-      this.game.player.setState(states.HIT2, 3)
+      this.game.player.setState(states.HIT2, 2)
     } else if (input.includes(90)) {
-      this.game.player.setState(states.HIT3, 3)
+      this.game.player.setState(states.HIT3, 2)
     }
   }
 }
@@ -116,11 +116,11 @@ export class Falling extends State {
     if (this.game.player.isOnGround()) {
       this.game.player.setState(states.RUNNING, 3)
     } else if (input.includes(82)) {
-      this.game.player.setState(states.HIT1, 3)
+      this.game.player.setState(states.HIT1, 2)
     } else if (input.includes(81)) {
-      this.game.player.setState(states.HIT2, 3)
+      this.game.player.setState(states.HIT2, 2)
     } else if (input.includes(90)) {
-      this.game.player.setState(states.HIT3, 3)
+      this.game.player.setState(states.HIT3, 2)
     }
   }
 }

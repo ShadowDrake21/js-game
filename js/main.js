@@ -36,10 +36,11 @@ window.addEventListener('load', function (e) {
     }
     update(deltaTime) {
       this.time += deltaTime
-      if (this.time > this.maxTime) {
-        this.gameOver = true
-      }
-      if (this.score >= this.winScore) {
+      if (
+        this.time > this.maxTime ||
+        this.score >= this.winScore ||
+        this.score <= -10
+      ) {
         this.gameOver = true
       }
       this.background.update()
@@ -56,7 +57,6 @@ window.addEventListener('load', function (e) {
         enemy.update(deltaTime)
       })
       this.enemies = this.enemies.filter((enemy) => !enemy.deletionMark)
-      console.log('Score: ' + this.score)
     }
     draw(context) {
       this.background.draw(context)
