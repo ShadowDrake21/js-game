@@ -51,6 +51,7 @@ export class Digger extends Enemy {
     this.speedY = 0
     this.image = document.getElementById('digger')
     this.maxFrame = 7
+    this.type = 'Digger'
   }
 }
 
@@ -66,6 +67,7 @@ export class Hand extends Enemy {
     this.speedY = 0
     this.image = document.getElementById('hand')
     this.maxFrame = 7
+    this.type = 'Hand'
   }
 }
 
@@ -83,6 +85,7 @@ export class Raven extends Enemy {
     this.maxFrame = 5
     this.angle = 0
     this.va = Math.random() * 0.1 + 0.1
+    this.type = 'Raven'
   }
   update(deltaTime) {
     super.update(deltaTime)
@@ -103,5 +106,6 @@ export class Zombie extends Enemy {
     this.speedY = 0
     this.image = document.getElementById('zombie')
     this.maxFrame = 7
+    this.type = 'Zombie'
   }
 }

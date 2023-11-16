@@ -20,18 +20,24 @@ window.addEventListener('load', function (e) {
       this.input = new InputHandler(this)
       this.background = new Background(this)
       this.time = 0
-      this.maxTime = 10000
+      this.maxTime = 40000
       this.gameOver = false
       this.enemies = []
+      this.collisions = []
       this.enemyTimer = 0
       this.enemyInterval = 1500
+      this.score = 0
+      this.winScore = 70
       this.player.currentState = this.player.states[0]
       this.player.currentState.enter()
     }
     update(deltaTime) {
       this.time += deltaTime
       if (this.time > this.maxTime) {
-        // this.gameOver = true
+        this.gameOver = true
+      }
+      if (this.score >= this.winScore) {
+        this.gameOver = true
       }
       this.background.update()
       this.player.update(this.input.pressedKeys, deltaTime)
@@ -47,7 +53,7 @@ window.addEventListener('load', function (e) {
         enemy.update(deltaTime)
       })
       this.enemies = this.enemies.filter((enemy) => !enemy.deletionMark)
-      console.log(this.player.currentState)
+      console.log('Score: ' + this.score)
     }
     draw(context) {
       this.background.draw(context)
@@ -59,7 +65,7 @@ window.addEventListener('load', function (e) {
     enemyAddition() {
       if (this.speed > 2 && Math.random() < 0.6) {
         this.enemies.push(new Digger(this))
-      } else if (this.speed > 2 && Math.random() > 0.5) {
+      } else if (this.speed >= 2 && Math.random() > 0.5) {
         this.enemies.push(new Hand(this))
       }
       if (Math.random() > 0.6) this.enemies.push(new Raven(this))

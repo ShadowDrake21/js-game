@@ -3,7 +3,6 @@ export class InputHandler {
     this.game = game
     this.pressedKeys = []
     window.addEventListener('keydown', (e) => {
-      console.log(e.keyCode)
       if (
         (e.keyCode === 87 ||
           e.keyCode === 65 ||

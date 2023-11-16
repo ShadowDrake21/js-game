@@ -42,6 +42,7 @@ export class Player {
     this.currentState = null
   }
   update(input, deltaTime) {
+    this.isThereCollision()
     this.currentState.handleInput(input)
     this.x += this.speed
     // horizontal movement
@@ -80,11 +81,16 @@ export class Player {
     }
   }
   draw(context) {
+    context.strokeRect(
+      this.x + 20,
+      this.y + 20,
+      this.width - 50,
+      this.height - 10
+    )
     if (
       this.currentState !== this.states[0] &&
       this.currentState !== this.states[1]
     ) {
-      console.log(this.currentState)
       context.drawImage(
         this.image,
         this.frameX * this.width,
@@ -118,5 +124,50 @@ export class Player {
 
     this.game.speed = this.game.maxSpeed * speed
     this.currentState.enter()
+  }
+  isThereCollision() {
+    this.game.enemies.forEach((enemy) => {
+      if (
+        enemy.x < this.x - 50 + this.width &&
+        enemy.x + enemy.width > this.x + 20 &&
+        enemy.y < this.y - 10 + this.height &&
+        enemy.y + enemy.height > this.y + 20
+      ) {
+        enemy.deletionMark = true
+        // this.game.collisions.push(
+        //   new AnimationOfCollision(
+        //     this.game,
+        //     enemy.x + enemy.width * 0.5,
+        //     enemy.y + enemy.height * 0.5
+        //   )
+        // )
+        console.log(enemy.type === 'Raven')
+        if (
+          (this.currentState === this.states[3] && enemy.type === 'Raven') ||
+          (this.currentState === this.states[4] &&
+            (enemy.type === 'Hand' || enemy.type === 'Digger')) ||
+          (this.currentState === this.states[5] && enemy.type !== 'Zombie') ||
+          (this.currentState === this.states[6] && enemy.type !== 'Zombie') ||
+          this.currentState === this.states[7]
+        ) {
+          if (enemy.type === 'Hand' || enemy.type === 'Digger') {
+            this.game.score += 3
+          } else if (enemy.type === 'Raven') {
+            this.game.score += 5
+          } else {
+            this.game.score += 10
+          }
+        } else {
+          this.setState(8, 0)
+          if (enemy.type === 'Hand' || enemy.type === 'Digger') {
+            this.game.score -= 3
+          } else if (enemy.type === 'Raven') {
+            this.game.score -= 5
+          } else {
+            this.game.score -= 10
+          }
+        }
+      }
+    })
   }
 }

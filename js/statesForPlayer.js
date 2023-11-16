@@ -182,5 +182,11 @@ export class Dead extends State {
     this.game.player.maxFrame = 3
     this.game.player.frameY = 9
   }
-  handleInput(input) {}
+  handleInput(input) {
+    if (this.game.player.frameX >= 3 && this.game.player.isOnGround()) {
+      this.game.player.setState(states.WALKING, 2)
+    } else if (this.game.player.frameX >= 3 && !this.game.player.isOnGround()) {
+      this.game.player.setState(states.FALLING, 1)
+    }
+  }
 }
