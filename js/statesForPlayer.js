@@ -27,7 +27,7 @@ export class Waiting extends State {
     this.game.player.frameY = 0
   }
   handleInput(input) {
-    if (input.includes(68) || input.includes(65)) {
+    if ((input.includes(68) || input.includes(65)) && !input.includes(83)) {
       this.game.player.setState(states.WALKING, 2)
     }
   }
@@ -67,9 +67,7 @@ export class Running extends State {
     this.game.player.frameY = 2
   }
   handleInput(input) {
-    if (input.includes(83)) {
-      this.game.player.setState(states.WAITING, 0)
-    } else if (!input.includes(13)) {
+    if (!input.includes(13)) {
       this.game.player.setState(states.WALKING, 2)
     } else if (
       input.includes(87) ||
@@ -184,5 +182,11 @@ export class Dead extends State {
     this.game.player.maxFrame = 3
     this.game.player.frameY = 9
   }
-  handleInput(input) {}
+  handleInput(input) {
+    if (this.game.player.frameX >= 3 && this.game.player.isOnGround()) {
+      this.game.player.setState(states.WALKING, 2)
+    } else if (this.game.player.frameX >= 3 && !this.game.player.isOnGround()) {
+      this.game.player.setState(states.FALLING, 1)
+    }
+  }
 }

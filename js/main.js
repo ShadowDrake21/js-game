@@ -1,4 +1,5 @@
 import { Background } from './background.js'
+import { Digger, Hand, Raven, Zombie } from './enemies.js'
 import { InputHandler } from './inputHandler.js'
 import { Player } from './player.js'
 
@@ -19,8 +20,14 @@ window.addEventListener('load', function (e) {
       this.input = new InputHandler(this)
       this.background = new Background(this)
       this.time = 0
-      this.maxTime = 10000
+      this.maxTime = 40000
       this.gameOver = false
+      this.enemies = []
+      this.collisions = []
+      this.enemyTimer = 0
+      this.enemyInterval = 1500
+      this.score = 0
+      this.winScore = 70
       this.player.currentState = this.player.states[0]
       this.player.currentState.enter()
     }
@@ -29,12 +36,41 @@ window.addEventListener('load', function (e) {
       if (this.time > this.maxTime) {
         this.gameOver = true
       }
+      if (this.score >= this.winScore) {
+        this.gameOver = true
+      }
       this.background.update()
       this.player.update(this.input.pressedKeys, deltaTime)
+
+      // enemies hanler
+      if (this.enemyTimer > this.enemyInterval) {
+        this.enemyAddition()
+        this.enemyTimer = 0
+      } else {
+        this.enemyTimer += deltaTime
+      }
+      this.enemies.forEach((enemy) => {
+        enemy.update(deltaTime)
+      })
+      this.enemies = this.enemies.filter((enemy) => !enemy.deletionMark)
+      console.log('Score: ' + this.score)
     }
     draw(context) {
       this.background.draw(context)
       this.player.draw(context)
+      this.enemies.forEach((enemy) => {
+        enemy.draw(context)
+      })
+    }
+    enemyAddition() {
+      if (this.speed > 2 && Math.random() < 0.6) {
+        this.enemies.push(new Digger(this))
+      } else if (this.speed >= 2 && Math.random() > 0.5) {
+        this.enemies.push(new Hand(this))
+      }
+      if (Math.random() > 0.6) this.enemies.push(new Raven(this))
+      if (this.time > 10000 && Math.random() > 0.7)
+        this.enemies.push(new Zombie(this))
     }
   }
 
