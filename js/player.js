@@ -1,3 +1,4 @@
+import { AnimationOfCollision } from './animationOfCollision.js'
 import {
   Waiting,
   Walking,
@@ -134,13 +135,13 @@ export class Player {
         enemy.y + enemy.height > this.y + 20
       ) {
         enemy.deletionMark = true
-        // this.game.collisions.push(
-        //   new AnimationOfCollision(
-        //     this.game,
-        //     enemy.x + enemy.width * 0.5,
-        //     enemy.y + enemy.height * 0.5
-        //   )
-        // )
+        this.game.collisions.push(
+          new AnimationOfCollision(
+            this.game,
+            enemy.x + enemy.width * 0.5,
+            enemy.y + enemy.height * 0.5
+          )
+        )
         console.log(enemy.type === 'Raven')
         if (
           (this.currentState === this.states[3] && enemy.type === 'Raven') ||

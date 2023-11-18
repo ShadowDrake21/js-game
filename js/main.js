@@ -53,6 +53,11 @@ window.addEventListener('load', function (e) {
       } else {
         this.enemyTimer += deltaTime
       }
+
+      this.collisions.forEach((collision) => {
+        collision.update(deltaTime)
+      })
+
       this.enemies.forEach((enemy) => {
         enemy.update(deltaTime)
       })
@@ -63,6 +68,9 @@ window.addEventListener('load', function (e) {
       this.player.draw(context)
       this.enemies.forEach((enemy) => {
         enemy.draw(context)
+      })
+      this.collisions.forEach((collision) => {
+        collision.draw(context)
       })
       this.labels.draw(context)
     }

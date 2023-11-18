@@ -30,6 +30,7 @@ body {
 #digger,
 #hand,
 #raven,
-#zombie {
+#zombie,
+#collision {
   display: none;
 }
