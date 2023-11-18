@@ -38,7 +38,7 @@ export class Labels {
     context.fillText('Timer: ' + (this.game.time * 0.001).toFixed(1), 20, 80)
 
     if (this.game.gameOver) {
-      context.font = this.fontsize * 2.1 + 'px ' + this.fontfamily
+      context.font = this.fontsize * 1.9 + 'px ' + this.fontfamily
       context.textAlign = 'center'
       if (this.game.score >= this.game.winScore) {
         context.fillText(
@@ -46,9 +46,9 @@ export class Labels {
           this.game.width * 0.5,
           this.game.height * 0.5 - 25
         )
-        context.font = this.fontsize * 1.5 + 'px ' + this.fontfamily
+        context.font = this.fontsize * 1.3 + 'px ' + this.fontfamily
         context.fillText(
-          'Can you do it again?!',
+          'Can you do it again?! Long press Enter to try again!',
           this.game.width * 0.5,
           this.game.height * 0.5 + 40
         )
@@ -58,9 +58,9 @@ export class Labels {
           this.game.width * 0.5,
           this.game.height * 0.5 - 25
         )
-        context.font = this.fontsize * 1.5 + 'px ' + this.fontfamily
+        context.font = this.fontsize * 1.3 + 'px ' + this.fontfamily
         context.fillText(
-          'Want a revanche? Try one more time!',
+          'Want a revanche? Long press Enter to try again!',
           this.game.width * 0.5,
           this.game.height * 0.5 + 40
         )

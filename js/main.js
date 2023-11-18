@@ -84,6 +84,16 @@ window.addEventListener('load', function (e) {
       if (this.time > 10000 && Math.random() > 0.7)
         this.enemies.push(new Zombie(this))
     }
+    restartGame() {
+      this.player.restart()
+      this.background.restart()
+      this.enemies = []
+      this.collisions = []
+      this.score = 0
+      this.time = 0
+      this.gameOver = false
+      animate(0)
+    }
   }
 
   const game = new Game(canvas.width, canvas.height)

@@ -15,6 +15,8 @@ export class InputHandler {
         this.pressedKeys.indexOf(e.keyCode) === -1 // 68 -> D 87 -> W 65 -> A 83-> S 81 -> R 82 -> Q 90 -> Z 13 -> Enter
       ) {
         this.pressedKeys.push(e.keyCode)
+      } else if (e.keyCode === 13 && this.game.gameOver) {
+        this.game.restartGame()
       }
     })
     window.addEventListener('keyup', (e) => {

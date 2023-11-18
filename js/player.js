@@ -142,7 +142,6 @@ export class Player {
             enemy.y + enemy.height * 0.5
           )
         )
-        console.log(enemy.type === 'Raven')
         if (
           (this.currentState === this.states[3] && enemy.type === 'Raven') ||
           (this.currentState === this.states[4] &&
@@ -170,5 +169,10 @@ export class Player {
         }
       }
     })
+  }
+  restart() {
+    this.x = 100
+    this.y = this.game.height - this.height
+    this.setState(0, 0)
   }
 }
